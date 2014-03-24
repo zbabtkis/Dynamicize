@@ -107,6 +107,8 @@ var WebSocketsCtrl = function(ObjectBinder, ctrls, refreshRate) {
 };
 
 Dynamicize.registerLoadMethod('websockets', WebSocketsCtrl);
+
+Dynamicize.start();
 </pre>
 			</section>
 		</section>
@@ -119,5 +121,7 @@ Dynamicize.registerLoadMethod('websockets', WebSocketsCtrl);
 
 	<script>
 		Dynamicize.start();
+		var regex = new RegExp("<", "g");
+		console.log(content.replace(regex, "&lt;"));
 	</script>
 </body>
