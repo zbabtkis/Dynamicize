@@ -23,11 +23,11 @@
 
 	<div class='container'>
 		<section id='demo'>
-		<h1>Welcome, <span data-ctrl='ajax' data-src='http://ip.jsontest.com/' data-attr='ip'></span></h1>
-		<p data-src='http://date.jsontest.com/' data-update='1000'>
-			It is now: <span data-attr='time'></span>
-			On: <span data-attr='date'></span>
-		</p>
+			<h1>Welcome, <span data-ctrl='ajax' data-src='http://ip.jsontest.com/' data-attr='ip'></span></h1>
+			<p data-src='http://date.jsontest.com/' data-update='1000'>
+				It is now: <span data-attr='time'></span>
+				On: <span data-attr='date'></span>
+			</p>
 		</section>
 
 		<section id='docs'>
@@ -56,6 +56,16 @@
 				</ul>
 
 				You can also use data-attr on elements inside of the controller. As in the date example on this page.
+
+				Here's the markup from the example above:
+
+				<pre class='prettyprint lang-html padded'>
+					<h1>Welcome, <span data-ctrl='ajax' data-src='http://ip.jsontest.com/' data-attr='ip'></span></h1>
+					<p data-src='http://date.jsontest.com/' data-update='1000'>
+						It is now: <span data-attr='time'></span>
+						On: <span data-attr='date'></span>
+					</p>
+				</pre>
 			</section>
 
 			<section id='api'>
