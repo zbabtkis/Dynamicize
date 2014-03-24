@@ -1,0 +1,31 @@
+{
+  "name": "Dynamicize",
+  "version": "1.0.0",
+  "authors": [
+    "zigzackattack <zackbabtkis@gmail.com>"
+  ],
+  "description": "A simple tool for building dynamic HTML without a lick of JavaScript!",
+  "main": "dynamicize.js",
+  "keywords": [
+    "dynamic",
+    "html",
+    "observe",
+    "async",
+    "ajax"
+  ],
+  "license": "WTFPL",
+  "homepage": "http://zacharybabtkis.com/portfolio/dynamicize",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "bootstrap": "~3.1.1",
+    "google-code-prettify": "~1.0.1"
+  }
+}

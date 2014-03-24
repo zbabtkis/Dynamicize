@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+
+<html lang='en'>
+<head>
+	<meta charset='utf-8' />
+	<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+	<title>Dynamicize Demo</title>
+
+	<link rel='stylesheet' href='css/hemisu-light.css' />
+	<link rel='stylesheet' href='components/bootstrap/dist/css/bootstrap.min.css' />
+
+	<style>
+		pre.padded {
+			padding: 30px;
+		}
+
+		section {
+			margin-bottom: 30px;
+		}
+	</style>
+</head>
+<body onload='prettyPrint()'>
+
+	<div class='container'>
+		<section id='demo'>
+		<h1>Welcome, <span data-ctrl='ajax' data-src='http://ip.jsontest.com/' data-attr='ip'></span></h1>
+		<p data-src='http://date.jsontest.com/' data-update='1000'>
+			It is now: <span data-attr='time'></span>
+			On: <span data-attr='date'></span>
+		</p>
+		</section>
+
+		<section id='docs'>
+			<h1>Docs</h1>
+			<p>This library provides a quick, easy way to load data dynamically into HTML elements.
+			Just specify the following attributes and your page will suddenly become dynamci!
+
+			<section id='basic-use'>
+				<h2>Basic Use</h2>
+				For the controller element, you must specify at least one attribute: data-src.
+				There are two more optional attributes: data-ctrl and data-attr.
+				<ul>
+					<li>
+						<h3>data-src</h3>
+						<p>This is the most important one. It is the AJAX url to pull data from.</p>
+					</li>
+					<li>
+						<h3>data-attr</h3>
+						<p>This specifies which attribute should be used on the object that results from the ajax call.</p>
+						<p>You can use a value nested in the result using a dot delimeted tree (e.g. bio.name.firstName)</p>
+					</li>
+					<li>
+						<h3>data-ctrl</h3>
+						<p>This is the controller to use for fetching data. By default Dynamicize uses AJAX, so you can omit this attribute in most cases</p>
+					</li>
+				</ul>
+
+				You can also use data-attr on elements inside of the controller. As in the date example on this page.
+			</section>
+
+			<section id='api'>
+				<h2>API</h2>
+				
+				<p>If you want to use your own data fetching controller (for example, if you want to load websockets data), use the registerLoadMethod method.
+				You can check out the AjaxController class in the source code to get an idea of what your controller should look like, but here's a quick overview:
+				<ul>
+					<li>Controller's recieve three arguments
+						<ul>
+							<li>ObjectBinder - this is the core of the libraries functionality -- it observes properties of an object
+								<p>With your controller, instantiate a new version for every data-src control</p>
+								<p>Use [instance].set(values) to set the values that should show in the DOM</p>
+							</li>
+							<li>ctrls - an object containing url=>callback pairs</li>
+							<li>refreshRate - a number (miliseconds) that should determine how often data should be refreshed</li>
+						</ul>
+					</li>
+					<li>To add your controller to data controller registry (to make it available through HTML API) use Dynamicize.registerLoadMethod(ctrl name, ctrl function);</li>
+				</ul>
+
+				Here's an example implementation for WebSockets
+			</section>
+
+<pre class='prettyprint lang-js padded'>
+var WebSocketsCtrl = function(ObjectBinder, ctrls, refreshRate) {
+  var socket = io.connect('http://localhost')
+    , o;
+  for(var sourceEvt in ctrls) {
+    o = new ObjectBinder({});
+    socket.on(sourceEvt, function (data) {
+      // This is where the magic happens!
+      ObjectBinder.set(data); 
+    });
+
+    // Provide HTML Element with ObjectBinder instance to render
+    ctrls[sourceEvent].call({}, o);
+  }
+};
+
+Dynamicize.registerLoadMethod('websockets', WebSocketsCtrl);
+</pre>
+			</section>
+		</section>
+	</div>
+
+	<script src='components/jquery/dist/jquery.min.js'></script>
+	<script src='components/google-code-prettify/src/prettify.js'></script>
+
+	<script src='dynamicize.js'></script>
+
+	<script>
+		Dynamicize.start();
+	</script>
+</body>
