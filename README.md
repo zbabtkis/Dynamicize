@@ -50,4 +50,8 @@ var WebSocketsCtrl = function(ObjectBinder, ctrls, refreshRate) {
     ctrls[sourceEvent].call({}, o);
   }
 };
+
+Dynamicize.registerLoadMethod('websockets', WebSocketsCtrl);
+
+Dynamicize.start();
 ```
